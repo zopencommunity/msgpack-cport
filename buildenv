@@ -30,11 +30,6 @@ zopen_pre_patch()
 ###
 ### Init: dump environment for diagnostics
 ###
-zopen_init()
-{
-  env
-}
-
 ###
 ### Build settings (Port type: BUILD, Build system: CMake)
 ###
