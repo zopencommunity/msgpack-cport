@@ -1,19 +1,19 @@
-# MessagePack
+# msgpack-c
 MessagePack implementation for C and C++ / msgpack.org[C/C++]
 
 # Installation and Usage
 
 Use the zopen package manager ([QuickStart Guide](https://zopen.community/#/Guides/QuickStart)) to install:
 ```bash
-zopen install MessagePack
+zopen install msgpack-c
 ```
 
 # Building from Source
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/zopencommunity/MessagePackport.git
-cd MessagePackport
+git clone https://github.com/zopencommunity/msgpack-cport.git
+cd msgpack-cport
 ```
 2. Build using zopen:
 ```bash
