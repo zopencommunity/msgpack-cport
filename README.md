@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 # msgpack-c
 MessagePack implementation for C and C++
 =======
-[![Automatic version updates](https://github.com/zopencommunity/MessagePackport/actions/workflows/bump.yml/badge.svg)](https://github.com/ZOSOpenTools/MessagePackport/actions/workflows/bump.yml)
-
 # MessagePack
 
 MessagePack implementation for C and C++ / msgpack.org[C/C++]
