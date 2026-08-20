@@ -1,0 +1,89 @@
+# bump: MessagePack-version /MESSAGEPACK_VERSION="(.*)"/ https://github.com/msgpack/msgpack-c/releases/tag/c-7.0.1|semver:*
+# MESSAGEPACK_VERSION="7.0.1"
+
+###
+### Build control file for the MessagePack port
+###
+
+###
+### Required Environment Variables
+###
+export ZOPEN_PROJECT_NAME="MessagePack"
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_STABLE_URL="https://github.com/msgpack/msgpack-c/releases/download/c-7.0.1/msgpack-c-7.0.1.tar.gz"
+export ZOPEN_STABLE_DEPS="cmake make cjson"
+export ZOPEN_DEV_URL="https://github.com/msgpack/msgpack-c/archive/refs/heads/c_master.tar.gz"
+export ZOPEN_DEV_DEPS="cmake make cjson"
+export ZOPEN_CATEGORIES="security development language ai core utilities editor source_control"
+export ZOPEN_RUNTIME_DEPS=""
+
+###
+### Pre-patch: set up CMake search path for cjson
+###
+zopen_pre_patch()
+{
+  export CMAKE_PREFIX_PATH="${CJSON_HOME}/lib/cmake/"
+}
+
+###
+### Patch: inject z/OS side-deck POST_BUILD into CMakeLists.txt
+###
+### Init: dump environment for diagnostics
+###
+###
+### Build settings (Port type: BUILD, Build system: CMake)
+###
+export ZOPEN_CONFIGURE="cmake"
+export ZOPEN_CONFIGURE_OPTS="-B ../build -DCMAKE_INSTALL_PREFIX=\${ZOPEN_INSTALL_DIR} -DMSGPACK_ENABLE_SHARED=OFF -DMSGPACK_ENABLE_STATIC=ON"
+export ZOPEN_MAKE="cmake"
+export ZOPEN_MAKE_OPTS="--build ../build"
+export ZOPEN_MAKE_MINIMAL=Y
+export ZOPEN_INSTALL="cmake"
+export ZOPEN_INSTALL_OPTS="--install ../build"
+#export ZOPEN_CHECK="ctest"
+#export ZOPEN_CHECK_OPTS="--test-dir ../build --output-on-failure"
+
+###
+### Required user-supplied functions
+###
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+  echo "actualFailures:0"
+  echo "totalTests:1"
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+zopen_get_version()
+{
+  echo "7.0.1"
+}
+
+###
+### Post-install: copy the z/OS side-deck into the install lib directory
+###
+zopen_post_install()
+{
+  if [ -f "../build/libmsgpack-c.x" ]; then
+    cp "../build/libmsgpack-c.x" "${ZOPEN_INSTALL_DIR}/lib/libmsgpack-c.x"
+  fi
+}
+
+###
+### Env hook: export include/lib paths for downstream ports
+###
+zopen_append_to_env()
+{
+  cat <<END
+if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\${MESSAGEPACK_HOME}/include"
+  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS} -I\${MESSAGEPACK_HOME}/include"
+  export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\${MESSAGEPACK_HOME}/lib"
+  export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS} -lmsgpack-c"
+fi
+END
+}
