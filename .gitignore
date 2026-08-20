@@ -4,3 +4,4 @@ log.STABLE/
 build/
 install/
 .zoslib_hooks/
+msgpack-c-7.0.1/
