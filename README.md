@@ -1,7 +1,5 @@
 =======
-
 # MessagePack
-
 MessagePack implementation for C and C++ / msgpack.org[C/C++]
 
 # Installation and Usage
