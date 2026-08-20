@@ -8,7 +8,6 @@
 ###
 ### Required Environment Variables
 ###
-export ZOPEN_PROJECT_NAME="MessagePack"
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_STABLE_URL="https://github.com/msgpack/msgpack-c/releases/download/c-7.0.1/msgpack-c-7.0.1.tar.gz"
 export ZOPEN_STABLE_DEPS="cmake make cjson"
