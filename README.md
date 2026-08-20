@@ -32,4 +32,3 @@ See the [zopen porting guide](https://zopen.community/#/Guides/Porting) for more
 
 # Contributing
 Contributions are welcome! Please follow the [zopen contribution guidelines](https://github.com/zopencommunity/meta/blob/main/CONTRIBUTING.md).
->>>>>>> 0384273 (Initial MessagePack port import)
